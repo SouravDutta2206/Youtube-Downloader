@@ -5,18 +5,16 @@ from pathlib import Path
 
 path_to_download_folder = str(os.path.join(Path.home(), "Downloads"))
 
-def downloadVideo(link):
+def downloadVideo(link,dataType,videoRes):
     
-    dataType = input("Data Type (1 for audio or 2 for video): ")
-
     yt = YouTube(link)
 
-    if dataType == "2":
+    if dataType == "Video":
 
-        yt = yt.streams.get_highest_resolution()
-        yt.download(path_to_download_folder) 
+        yt = yt.streams.get_by_resolution(videoRes)
+        yt.download(path_to_download_folder)
 
-    elif dataType == "1":
+    elif dataType == "Audio":
 
         yt = yt.streams.get_audio_only()
         outFile = yt.download(path_to_download_folder)
@@ -25,32 +23,35 @@ def downloadVideo(link):
         os.rename(outFile,newFile)
 
        
-def main():
+def downloader(link,linkType,dataType,videoRes):
 
-    linkType = input("Link Type (1 for videos, 2 for Playlist): ")
-
-    if linkType == "1":
-
-       link = input("Enter the YouTube video URL: ")
+    if linkType == "Video":
 
        try:
-           downloadVideo(link)
+           downloadVideo(link,dataType,videoRes)
            print("Download Completed")
        except:
            print("An Error has occured")
            return
        
-    elif linkType == "2":
-
-       link = input("Enter the Youtube Playlist URL: ")
+    elif linkType == "Playlist":
 
        p = Playlist(link)
 
        try:
+           videoCount = 1
            for video_urls in p.video_urls:
-               downloadVideo(video_urls)
+               downloadVideo(video_urls,dataType,videoRes)
+               print(f'Download Completed {videoCount} of {len(p.video_urls)}')
+               videoCount += 1
        except:
            print("An Error has occured")
            return
 
-main()
+
+
+
+
+            
+    
+    
