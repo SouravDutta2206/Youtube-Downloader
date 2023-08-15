@@ -1,7 +1,8 @@
 # Youtube Video Downloader
 A Youtube video downloader with support for downloading audio only and playlists written with pytube and customtkinter
 
-![image](https://github.com/SouravDutta2206/Youtube-Downloader/assets/140536178/d0c13677-208d-4f2f-98c6-45f0c916774e)
+![image](https://github.com/SouravDutta2206/Youtube-Downloader/assets/140536178/a0cd2b2e-7b9b-4023-94d7-65b6cb1f1756)
+
 
 
 ## Pre-requisites
@@ -34,7 +35,8 @@ the appearance mode menu is for changing app theme from light mode to dark mode 
 
 ## Limitations and Important Notes
 
-![Untitled](https://github.com/SouravDutta2206/Youtube-Downloader/assets/140536178/bdbc987d-3406-4ef2-bb18-69c0066d5f85)
+![Untitled](https://github.com/SouravDutta2206/Youtube-Downloader/assets/140536178/2e8d6bcf-c81e-4ca8-945a-47b3446d4381)
+
 
 with pytube downloading 60fps video is not suitable or atleast i couldn't make it work so if a video has the 1080p60 or 720p60 those streams can't be downloaded and will give you a error but regular 1080p or 720p works fine
 
