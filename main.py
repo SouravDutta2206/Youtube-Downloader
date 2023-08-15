@@ -1,52 +1,34 @@
 from pytube import YouTube
 from pytube import Playlist
 import os
-from pathlib import Path
+import ffmpeg
+import re
 
-path_to_download_folder = str(os.path.join(Path.home(), "Downloads"))
-
-def downloadVideo(link,dataType,videoRes):
+def downloadVideo(link,dataType,videoRes,outputPath):
     
     yt = YouTube(link)
 
     if dataType == "Video":
 
-        yt = yt.streams.get_by_resolution(videoRes)
-        yt.download(path_to_download_folder)
+        # download video only
+        yt.streams.filter(res=f"{videoRes}", progressive=False).first().download(filename='video.mp4')
+        video = ffmpeg.input('video.mp4')
+        #download audio only
+        yt.streams.filter(abr='160kbps', progressive=False).first().download(filename='audio.mp3')
+        audio = ffmpeg.input('audio.mp3')
+        title = yt.title
+        normalTitle = re.sub("[^A-Za-z0-9]+"," ",title,0,re.IGNORECASE)
+        ffmpeg.concat(video,audio,v=1,a=1).output(f'{outputPath}\{normalTitle}.mp4').run(overwrite_output=True)
+
+        os.remove("video.mp4")
+        os.remove("audio.mp3")
 
     elif dataType == "Audio":
 
-        yt = yt.streams.get_audio_only()
-        outFile = yt.download(path_to_download_folder)
-        base , ext = os.path.splitext(outFile)
-        newFile = base + '.mp3'
-        os.rename(outFile,newFile)
+        yt.streams.filter(abr='160kbps', progressive=False).first().download(filename=f'{yt.title}.mp3',output_path=outputPath)
 
        
-def downloader(link,linkType,dataType,videoRes):
 
-    if linkType == "Video":
-
-       try:
-           downloadVideo(link,dataType,videoRes)
-           print("Download Completed")
-       except:
-           print("An Error has occured")
-           return
-       
-    elif linkType == "Playlist":
-
-       p = Playlist(link)
-
-       try:
-           videoCount = 1
-           for video_urls in p.video_urls:
-               downloadVideo(video_urls,dataType,videoRes)
-               print(f'Download Completed {videoCount} of {len(p.video_urls)}')
-               videoCount += 1
-       except:
-           print("An Error has occured")
-           return
 
 
 
