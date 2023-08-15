@@ -18,7 +18,7 @@ After downloading the exe run it (preferebly as administrator)
 
 in the top there is a box with text 'Output path', here the output path where the downloaded video(s) will be downloaded is to be pasted
 
-if left blank, by default the downloads will be in the C:\\users\(current user)\Downloads or simply the Downloads folder
+if left blank, by default the downloads will be in the C:\\users\\(current user)\Downloads or simply the Downloads folder
 
 the dropdown menus are used to set parameters for the downloads:
 
