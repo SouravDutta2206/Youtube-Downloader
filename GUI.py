@@ -1,24 +1,20 @@
 import customtkinter
 from pytube import YouTube
 from pytube import Playlist
+import os
+import re
+from pathlib import Path
+from threading import Thread 
 
 from main import downloadVideo
 
-import os
-from pathlib import Path
-import re
-from threading import Thread 
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
-
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-
-        #def threadingFuntion(self):
-            
 
         # configure window
         self.title("Youtube Video Downloader")
@@ -43,8 +39,7 @@ class App(customtkinter.CTk):
         
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=9, column=0, padx=20, pady=(10, 0))
-        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],
-                                                                       command=self.change_appearance_mode_event)
+        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=10, column=0, padx=20, pady=(10, 20))
         
         # create main entry and button
@@ -86,22 +81,16 @@ class App(customtkinter.CTk):
     def button_on_click(self):
 
         newThread = Thread(target=self.download_button_event,daemon=True)
-
         newThread.start()
-
         self.main_button_1.configure(state="disabled")
         
 
     def download_button_event(self):
 
         link = self.entry.get()
-
         linkType = self.linkTypeOptionemenu.get()
-
         dataType = self.dataTypeOptionemenu.get()
-
         videoResolution = self.videoResOptionemenu.get()
-
         outputPath = self.outputPath.get()
 
         if outputPath == "":
@@ -114,17 +103,19 @@ class App(customtkinter.CTk):
            try:
                yt = YouTube(link)
                title = yt.title
-               title = re.sub("[^A-Za-z0-9]+"," ",title,0,re.IGNORECASE)
+               title = re.sub("\W+"," ",title,0,re.IGNORECASE)
                self.textbox.insert("insert", f"Title: {title}" + "\n")
                downloadVideo(link,dataType,videoResolution,outputPath)
                self.textbox.insert("insert" , "\n")
                self.textbox.insert("insert" , f"Download completed"+ "\n")
                self.textbox.insert("insert" , "\n")
+               self.main_button_1.configure(state="normal")  
 
            except:
                self.textbox.insert("insert" , "\n")
                self.textbox.insert("insert" , f"An Error has occured" + "\n")
                self.textbox.insert("insert", "\n")
+               self.main_button_1.configure(state="normal")  
                return
        
         elif linkType == "Playlist":
@@ -135,22 +126,20 @@ class App(customtkinter.CTk):
                 videoCount = 1
                 for video_urls in p.video_urls:
                    yt = YouTube(video_urls)
-                   title = re.sub("[^A-Za-z0-9]+"," ",yt.title,0,re.IGNORECASE)
+                   title = re.sub("\W+"," ",yt.title,0,re.IGNORECASE)
                    downloadVideo(video_urls,dataType,videoResolution,outputPath)
                    self.textbox.insert("insert" , "\n")
                    self.textbox.insert("insert", f"Title: {title}" + "\n")
                    self.textbox.insert("insert" , "\n")
                    self.textbox.insert("insert",f'Download Completed {videoCount} of {len(p.video_urls)}'+"\n")
                    videoCount += 1
+                self.main_button_1.configure(state="normal")  
             except:
                    self.textbox.insert("insert" , "\n")
                    self.textbox.insert("insert" , f"An Error has occured")
                    self.textbox.insert("insert", "\n")
+                   self.main_button_1.configure(state="normal")  
                    return
-            
-        self.main_button_1.configure(state="normal")   
-        
-        
             
 
 if __name__ == "__main__":
