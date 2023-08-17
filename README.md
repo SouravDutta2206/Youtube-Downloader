@@ -32,7 +32,7 @@ For the .exe version after downloading the .exe run it (preferebly as administra
 
 For the script version, assuming python is instaled properly, right click the GUI.py file and from the opened dialogue box select 'open with' then python(if python is not in the options then 'choose another app' and locate the python.exe on your system) 
 
-the usage of GUI is explained in the GUI Explation Section
+the usage of GUI is explained in the GUI Explanation Section
 
 The script version when run for the first time will prompt for the youtube authentication in the black cmd window, follow the instructions there
 this is only required for the first time and then it will save the tokens.json for automatic authentication in the future downloads
