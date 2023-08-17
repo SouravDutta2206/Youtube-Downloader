@@ -10,9 +10,13 @@ The system should have the latest release of [FFmpeg](https://github.com/BtbN/FF
 get the latest win64-gpl.zip and extract the ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe to somewhere on the system and add this directory to the environment PATH variable in windows
 
 There are two versions, the exe can download all videos that do not required user authentication aka age-restricted,members only videos 
+
 The python script can download all videos but requires more setup
+
 If choosing to use the basic .exe then skip the next steps and go to installation section
+
 If choosing to use the python script then the latest release of python should be installed and and added to PATH environment variables 
+
 Use this [article](https://www.geeksforgeeks.org/how-to-install-python-on-windows/) to properly install python first
 
 then open a command prompt (search for cmd in windows search bar) and paste the following lines there and press enter
