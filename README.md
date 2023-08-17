@@ -19,7 +19,7 @@ If choosing to use the python script then the latest release of python should be
 
 Use this [article](https://www.geeksforgeeks.org/how-to-install-python-on-windows/) to properly install python first
 
-then open a command prompt (search for cmd in windows search bar) and paste the following lines there and press enter
+then open a command prompt (search for cmd in windows search bar) and paste the following lines there and press enter and wait for the downloads to finish
 ```
 pip install customtkinter
 pip install pytube
