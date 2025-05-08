@@ -1,12 +1,12 @@
 import customtkinter
-from pytube import YouTube
-from pytube import Playlist
+from pytubefix import YouTube
+from pytubefix import Playlist
 import os
 import re
 from pathlib import Path
 from threading import Thread 
 
-from main import downloadVideo
+from yt_dl import downloadVideo
 
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
@@ -100,23 +100,23 @@ class App(customtkinter.CTk):
 
         if linkType == "Video":
 
-           try:
-               yt = YouTube(link)
-               title = yt.title
-               title = re.sub("\W+"," ",title,0,re.IGNORECASE)
-               self.textbox.insert("insert", f"Title: {title}" + "\n")
-               downloadVideo(link,dataType,videoResolution,outputPath)
-               self.textbox.insert("insert" , "\n")
-               self.textbox.insert("insert" , f"Download completed"+ "\n")
-               self.textbox.insert("insert" , "\n")
-               self.main_button_1.configure(state="normal")  
+            try:    
+                yt = YouTube(link)
+                title = yt.title
+                title = re.sub("\W+"," ",title,0,re.IGNORECASE)
+                self.textbox.insert("insert", f"Title: {title}" + "\n")
+                downloadVideo(link,dataType,videoResolution,outputPath)
+                self.textbox.insert("insert" , "\n")
+                self.textbox.insert("insert" , f"Download completed"+ "\n")
+                self.textbox.insert("insert" , "\n")
+                self.main_button_1.configure(state="normal")  
 
-           except:
-               self.textbox.insert("insert" , "\n")
-               self.textbox.insert("insert" , f"An Error has occured" + "\n")
-               self.textbox.insert("insert", "\n")
-               self.main_button_1.configure(state="normal")  
-               return
+            except:
+                self.textbox.insert("insert" , "\n")
+                self.textbox.insert("insert" , f"An Error has occured" + "\n")
+                self.textbox.insert("insert", "\n")
+                self.main_button_1.configure(state="normal")  
+                return
        
         elif linkType == "Playlist":
 
